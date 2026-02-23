@@ -7,18 +7,18 @@ public class Vectores {
 
     public static void main(String[] args) {
         Scanner entrada = new Scanner(System.in);
-        // Puedes poner los corchetes antes y después de variable
-        float[] numeros = new float[5];
+        float numeros[] = new float[5];
 
-            System.out.println("Guardando los datos en el arreglo");
-            for(int i=0; i<5; i++) {
-                System.out.print((i+1)+". Digite un número: ");
-                numeros[i] = entrada.nextFloat();
-            }
+        System.out.println("Guardando los datos del arreglo");
 
-            System.out.println("\nImprimir los elementos del arreglo");
-            for(float i:numeros){
-                System.out.println(i);
-            }
+        for(int i=0; i<5; i++) {
+            System.out.print((i+1)+". Digite un número: ");
+            numeros[i] = entrada.nextFloat();
+        }
+
+        System.out.println("Los elementos del arreglo en orden inverso son: ");
+        for(int i=4; i>=0; i--) {
+            System.out.println(numeros[i]);
+        }
     }
 }
