@@ -2,23 +2,51 @@
 import java.util.Scanner;
 
 
-/*Leer 5 números, guardalos en un arreglo y mostrarlos en el mismo orden introducido. */
+/*Leer 5 números por teclado, almacenarlos en un arreglo y a continuación realizar la media de los números positivos, la media de los
+negativos y contar el número de ceros */
 public class Vectores {
 
     public static void main(String[] args) {
         Scanner entrada = new Scanner(System.in);
         float numeros[] = new float[5];
+        float suma_positivos=0, suma_negativos=0,media_positivos,media_negativos;
+        int conteo_positivos=0, conteo_negativos=0, conteo_ceros=0;
 
-        System.out.println("Guardando los datos del arreglo");
-
+        System.out.println("Guardando los números en el arreglo");
         for(int i=0; i<5; i++) {
             System.out.print((i+1)+". Digite un número: ");
             numeros[i] = entrada.nextFloat();
+
+            if(numeros[i] == 0) {
+                conteo_ceros++;
+            }
+            else if(numeros[i] > 0) {
+                suma_positivos += numeros[i];
+                conteo_positivos++;
+            }
+            else {
+                suma_negativos += numeros[i];
+                conteo_negativos++;
+            }
         }
 
-        System.out.println("Los elementos del arreglo en orden inverso son: ");
-        for(int i=4; i>=0; i--) {
-            System.out.println(numeros[i]);
+        // Media de los números positivos 
+        if(conteo_positivos == 0) {
+            System.out.println("No se puede sacar la media de los números positivos");
         }
+        else {
+            media_positivos = suma_positivos / conteo_positivos;
+            System.out.println("La media de los números positivos es: "+media_positivos);
+        }
+
+        if(conteo_negativos == 0) {
+            System.out.println("No se puede sacar la media de los números negativos");
+        }
+        else {
+            media_negativos = suma_negativos / conteo_negativos;
+            System.out.println("La media de los números negativos es: "+media_negativos);
+        }
+
+        System.out.println("la cantidad de ceros es: "+conteo_ceros);
     }
 }
