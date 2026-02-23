@@ -1,59 +1,60 @@
 
 import java.util.Scanner;
 
-/*Leer 10 enteros ordenados crecientemente. Leer N y buscarlo en la tabla. Se debe mostrar la posición en que se encuentra. Si 
-no está, indicarlo en mensaje. */
+/*Desarrollar una aplicación que nos ayude a gestionar las notas de un centro educativo. Cada grupo (o clase) está compuesto por 5 alumnos.
+Se pide leer notas del primero, segundo y tercer trimestre de un grupo. Debemos mostrar al final: la nota media del grupo en cada trimestre, y 
+la media del alumno que se encuentre en la posición N (N se lee por teclado).  */
 public class Vectores {
 
     public static void main(String[] args) {
         Scanner entrada = new Scanner(System.in);
-        int arreglo[], numero;
-        boolean creciente = true;
+        float primer[], segundo[], tercer[];
+        float sumaPrimer=0, sumaSegundo=0, sumaTercer=0, sumaAlumno=0;
+        float promedioPrimer, promedioSegundo, promedioTercer, promedioAlumno;
+        int posicion;
 
-        arreglo = new int[10]; // Creamos el arreglo con 10 posiciones
+        primer = new float[5]; // Creamos los arreglos con los 5 elementos
+        segundo = new float[5]; 
+        tercer = new float[5];
+
+        System.out.println("Digite las notas del primer trimestre: ");
+        for(int i=0; i<5; i++) {
+            System.out.print("Alumno ["+i+"]: ");
+            primer[i] = entrada.nextFloat();
+
+            sumaPrimer += primer[i]; // Sumamos todas las notas del primer trimestre
+        }
+        System.out.println("Digite las notas del segundo trimestre: ");
+        for(int i=0; i<5; i++) {
+            System.out.print("Alumno ["+i+"]: ");
+            segundo[i] = entrada.nextFloat();
+
+            sumaSegundo += segundo[i]; // Sumamos todas las notas del segundo trimestre
+        }
+        System.out.println("Digite las notas del tercer trimestre: ");
+        for(int i=0; i<5; i++) {
+            System.out.print("Alumno ["+i+"]: ");
+            tercer[i] = entrada.nextFloat();
+
+            sumaTercer += tercer[i]; // Sumamos todas las notas del tercer trimestre
+        }
+        //Sacamos el promedio de cada uno de los trimestres
+        promedioPrimer = sumaPrimer/5;
+        promedioSegundo = sumaSegundo/5;
+        promedioTercer = sumaTercer/5;
+        // Ahora pedimos la posicion del alumno N para sacar tu promedio
         do {
-            // Pedimos el arreglo 
-            System.out.println("Rellene el arreglo: ");
-            for(int i=0; i<10; i++) {
-                System.out.print(i+". Digite un número: ");
-                arreglo[i] = entrada.nextInt();
-            }
-            // Verifica si el arreglo esta ordenado
-            for(int i=0; i<9; i++) {
-                if(arreglo[i] < arreglo[i+1]) { // Creciente: 1-2-3
-                    creciente = true;
-                }
-                if(arreglo[i] > arreglo[i+1]) { // Decreciente: 3-2-1
-                    creciente = false;
-                    break;
-                }
-            }
+            System.out.println("\nDigite la posición del alumno(0-4), para sacar el promedio: ");
+            posicion = entrada.nextInt();
+        } while(posicion<0 || posicion>4);
+        // Sacamos la suma de las notas del alumno
+        sumaAlumno = primer[posicion] + segundo[posicion] + tercer[posicion];
+        promedioAlumno = sumaAlumno/3;
 
-            if(creciente == false) {
-                System.out.println("\nEl arreglo esta desordenado, digite nuevamente: \n");
-            }
-        } while(creciente == false); 
-    
-        // Pedimos el numero a buscar 
-        System.out.print("\nDigite el número a buscar en el arreglo: ");
-        numero = entrada.nextInt();
-
-        // Buscamos el numero en el arreglo
-        int i=0;
-        // 1-2-3-4-5...-10 
-        while(i<10 && arreglo[i]<numero) {
-            i++;
-        }
-        if(i == 10) { // Hemos recorrido todo el arreglo y no encontramos nada 
-            System.out.println("\nNúmero no encontrado");
-        }
-        else {
-            if(arreglo[i] == numero) {
-                System.out.println("\nNúmero encontrado en la posición: "+i);
-            }
-            else {
-                System.out.println("\nNúmero no encontrado");
-            }
-        }
+        System.out.println("\nMostrando los datos requeridos");
+        System.out.println("Promedio Primer trimestre: "+promedioPrimer);
+        System.out.println("Promedio Segundo trimestre: "+promedioSegundo);
+        System.out.println("Promedio Tercer trimestre: "+promedioTercer);
+        System.out.println("Promedio del Alumno: "+promedioAlumno);
     }
 }
