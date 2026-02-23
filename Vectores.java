@@ -2,51 +2,56 @@
 import java.util.Scanner;
 
 
-/*Leer 5 números por teclado, almacenarlos en un arreglo y a continuación realizar la media de los números positivos, la media de los
-negativos y contar el número de ceros */
+/*Leer los datos correspondiente a dos tablas de 12 elementos númericos, y mezclarlos en una tercera de la forma: 3 de la tabla A, 3 de la 
+B, otros 3 de A, otros 3 de la B, etc. */
 public class Vectores {
 
     public static void main(String[] args) {
         Scanner entrada = new Scanner(System.in);
-        float numeros[] = new float[5];
-        float suma_positivos=0, suma_negativos=0,media_positivos,media_negativos;
-        int conteo_positivos=0, conteo_negativos=0, conteo_ceros=0;
+        int a[], b[], c[];
+        int i, j;
 
-        System.out.println("Guardando los números en el arreglo");
-        for(int i=0; i<5; i++) {
+        a = new int[12]; //Arreglo a[] va a tener 12 elementos
+        b = new int[12];
+        c = new int[24]; // Arreglo c[] va almacenar a arreglo a[] y arreglo b[]
+
+        //Pedimos el arreglo a[]
+        System.out.println("Digite el primer arreglo");
+        for( i=0; i<12; i++) {
             System.out.print((i+1)+". Digite un número: ");
-            numeros[i] = entrada.nextFloat();
+            a[i] = entrada.nextInt();
+        }
+        
+        //Pedimos el arreglo b[]
+        System.out.println("Digite el segundo arreglo");
+        for( i=0; i<12; i++) {
+            System.out.print((i+1)+". Digite un número: ");
+            b[i] = entrada.nextInt();
+        }
+        // Mezclar los dos arreglos a[] y b[]
+        // El iterador i sera para los arreglos a[] y b[] y el j para el arreglo c[]
+        i=0;
+        j=0;
 
-            if(numeros[i] == 0) {
-                conteo_ceros++;
+        while(i<12) {
+            // Copiar los 3 elementos de a[]
+            for(int k=0; k<3; k++) {
+                c[j] = a[i+k];
+                j++;
             }
-            else if(numeros[i] > 0) {
-                suma_positivos += numeros[i];
-                conteo_positivos++;
+            //Ahora copiamos los 3 elementos de b[]
+            for(int k=0;k<3;k++) {
+                c[j] = b[i+k];
+                j++;
             }
-            else {
-                suma_negativos += numeros[i];
-                conteo_negativos++;
-            }
+
+            i+=3;
         }
 
-        // Media de los números positivos 
-        if(conteo_positivos == 0) {
-            System.out.println("No se puede sacar la media de los números positivos");
+        System.out.print("El arreglo resultante es: ");
+        for(i=0; i<24; i++) {
+            System.out.print(c[i]+" - ");
         }
-        else {
-            media_positivos = suma_positivos / conteo_positivos;
-            System.out.println("La media de los números positivos es: "+media_positivos);
-        }
-
-        if(conteo_negativos == 0) {
-            System.out.println("No se puede sacar la media de los números negativos");
-        }
-        else {
-            media_negativos = suma_negativos / conteo_negativos;
-            System.out.println("La media de los números negativos es: "+media_negativos);
-        }
-
-        System.out.println("la cantidad de ceros es: "+conteo_ceros);
+        System.out.println();
     }
 }
