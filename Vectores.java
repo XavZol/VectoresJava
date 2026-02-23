@@ -2,37 +2,59 @@
 import java.util.Scanner;
 
 
-/*Diseñar una aplicación que declare una tabla de 10 elementos enteros y la desplace N posiciones en un arreglo. */
+/*Leer 5 elementos numéricos que se introduciran ordenados de forma creciente. Éstos los guardamos en una tabla de tamaño 10.
+Leer un número N, e insertarlo en el lugar adecuado para que la tabla continue ordenada. */
 public class Vectores {
 
     public static void main(String[] args) {
         Scanner entrada = new Scanner(System.in);
-        int arreglo[] = new int[10]; //Creamos 10 elementos enteros 
-        int nPosicion, ultimo;
+        int arreglo[] = new int[10];
+        boolean creciente = true;
+        int numero, sitio_num=0, j=0 ;
 
-        System.out.println("Llenar el arreglo: ");
-        for(int i=0; i<10; i++) {
-            System.out.print(i+ ". Digite un número: ");
-            arreglo[i] = entrada.nextInt();
-        }
-
-        System.out.print("\nDigite la cantidad de posiciones a desplazar: ");
-        nPosicion = entrada.nextInt();
-
-        for(int vuelta=1; vuelta<=nPosicion; vuelta++) {
-
-            ultimo = arreglo[9]; // Guardamos el ultimo elemento del arreglo 
-            
-            for(int i=8; i>=0; i--) { // Desplazando una posicion en el arreglo
-                arreglo[i+1] = arreglo[i];
+        System.out.println("Llenar el arreglo");
+        do {
+            //Llenando el arreglo
+            for(int i=0; i<5; i++) {
+                System.out.print((i+1)+". Digite un número: ");
+                arreglo[i] = entrada.nextInt();
             }
 
-            arreglo[0] = ultimo; // ponemos el último elemento como el primero.
-        }
+            // Comprobando si el arreglo está ordenado en forma creciente
+            for(int i=0; i<4; i++) {
+                if(arreglo[i] < arreglo[i+1]) { // Creciente: 1-2-3
+                    creciente = true;
+                }
+                if(arreglo[i] > arreglo[i+1]) { // Decreciente 3-2-1
+                    creciente = false;
+                    break;
+                }
+            }
 
-        System.out.println("\nEl arreglo resultante es: ");
-        for(int i=0; i<10; i++) {
-            System.out.println(i+". Elemento: "+arreglo[i]);
+            if(creciente == false) {
+                System.out.println("\nEl arreglo no esta ordenado en forma creciente, vuelva a intentar:\n ");
+            }
+        } while(creciente == false);
+
+        System.out.print("\nDigite un elemento a insertar: ");
+        numero = entrada.nextInt();
+
+        // Ver en que posicion va el número 
+        while(arreglo[j]<numero && j<5) {
+            sitio_num++;
+            j++;
         }
+        // Por último, trasladamos una posición del arreglo a los elementos que van detrás del número
+        for(int i=4; i>=sitio_num; i--) {
+            arreglo[i+1] = arreglo[i];
+        }
+        // Insertamos el número que el usuario puso
+        arreglo[sitio_num] = numero;
+
+        System.out.print("\nEl arreglo queda: ");
+        for(int i=0; i<6; i++) {
+            System.out.print(arreglo[i]+ " - ");
+        }
+        System.out.println();
     }
 }
